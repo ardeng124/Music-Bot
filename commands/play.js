@@ -39,7 +39,7 @@ module.exports.run = async (client, message, args) => {
             var result;
             try {
                 result = await youtube.searchVideos(query);
-                console.log(result);
+           
                 songUrl = result.url;
             } catch(err) {
                 console.log(err);
@@ -151,7 +151,6 @@ module.exports.run = async (client, message, args) => {
         const dispatcher = serverQueue.connection
             .play(ytdl(song.url),{seek:timestamp})
             .on("finish", () => {
-                console.log(timestamp);
                 serverQueue.songs.shift();
                 serverQueue.currentSong = serverQueue.songs[0];
                 play(message, guild, serverQueue.songs[0],0);

@@ -8,10 +8,18 @@ client.login(config.token);
 client.commands = new Map();
 client.queue = new Map();
 //const queue = new Map();
-
+const statusMessages = [  
+    "suffering",
+    "pain and misery",
+    "dancing",
+    "some music",
+    "bored"
+]
 client.once('ready', () => {
     console.log("Ready!!")
-    client.user.setActivity("suffering", { type: "STREAMING", url: "https://www.twitch.tv/something" })
+  
+    let index = Math.floor(Math.random() * (statusMessages.length - 1 + 1));
+    client.user.setActivity(statusMessages[index], { type: "STREAMING", url: "https://www.twitch.tv/something" })
 });
 client.once("reconnecting", () => {
     console.log("reconnecting");
@@ -22,7 +30,6 @@ client.once("disconnect", () => {
 client.on("error", (e) => console.error(e));
 
 client.on('ready', async () => {
-    //https://www.geeksforgeeks.org/node-js-fs-readdir-method/
     readdir("./commands/", (error, files) => {
         if(error) throw error;
         files.forEach(file => {
