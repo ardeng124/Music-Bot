@@ -14,7 +14,7 @@ module.exports.run = async (client, message, args) => {
     return message.reply("Queue is empty");
   }
   const embed = new Discord.MessageEmbed()
-    .setTitle("Queue")
+    .setTitle("🎵 Queue 🎵")
     .setColor(0x78b0f0)
     .setFooter(`server id ${message.guild.id}`)
     .setTimestamp();

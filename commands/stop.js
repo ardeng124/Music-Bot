@@ -13,9 +13,5 @@ module.exports.run = async (client, message, args) => {
     if (!serverQueue) {
         return message.reply("there are no songs to stop");
     }
-    serverQueue.songs = [];
-    client.queue.delete(message.guild.id);
-    if (client.voice.channel) {
-      serverQueue.connection.dispatcher.end();
-    }
+    serverQueue.connection.dispatcher.end();
 };

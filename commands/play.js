@@ -1,9 +1,14 @@
 const ytdl = require("ytdl-core");
 const ytpl = require("ytpl");
+const YouTube = require("discord-youtube-api");
+const config = require('../config.json');
+const youtube = new YouTube(config.youtubeKey);
+const Discord = require("discord.js");
+
 module.exports.help = {
   name: ["play"],
-  description: "plays music, can also accept playlists",
-  usage: "-play url",
+  description: "plays music, can also accept playlists and search queries (note, there is a max of 100 searches per day)",
+  usage: "-play url OR -play search query",
 };
 
 module.exports.run = async (client, message, args) => {
@@ -22,13 +27,31 @@ module.exports.run = async (client, message, args) => {
     }
     //load details of the video
     var songInfo;
-    var isPlaylist = ytpl.validateID(songUrl);
     var song;
+    var isPlaylist = ytpl.validateID(songUrl);
+    var isVideo = ytdl.validateURL(songUrl);
+
+
     if (!isPlaylist) {
+        if(!isVideo) {
+            var query = args.join(" ");
+            query = query.substring(6);
+            var result;
+            try {
+                result = await youtube.searchVideos(query);
+                console.log(result);
+                songUrl = result.url;
+            } catch(err) {
+                console.log(err);
+                return message.channel.send(`Error ${err}`);
+
+            }
+
+        } 
         try {
             songInfo = await ytdl.getInfo(songUrl);
         } catch (err) {
-            return message.reply("Please use a youtube link");
+            return message.reply("Could not get youtube video");
 
             // let video = message.content.substring(5);
             // var searchResult = search(video);
@@ -41,14 +64,15 @@ module.exports.run = async (client, message, args) => {
         let duration = songInfo.videoDetails.lengthSeconds;
         // let thumbnail = songInfo.videoInfo.thumbnail_url;
         let author = songInfo.videoDetails.author.name;
-
-        song = {
+            song = {
             title: title,
             url: url,
             length: duration,
             //thumbnail: thumbnail,
             author: author,
         };
+    
+        // if its a playlist do the playlist stuff
     } else {
         var songs = await ytpl(songUrl);
         var playlistTitle = songs.title;
@@ -145,8 +169,13 @@ module.exports.run = async (client, message, args) => {
             });
 
         dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-        serverQueue.textChannel.send(
-            `Now playing: **${song.title}** by ${song.author}`
-        );
+        const embed = new Discord.MessageEmbed()
+            .setTitle("Now Playing 🎶")
+            .setColor(0x78b0f0)
+            .setDescription(`**${song.title}** \n by ${song.author}`);
+        serverQueue.textChannel.send(embed);
+        // serverQueue.textChannel.send(
+        //     `Now playing: **${song.title}** by ${song.author}`
+        // );
     }
 };
