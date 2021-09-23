@@ -26,5 +26,4 @@ module.exports.run = async (client, message, args) => {
     message.channel.send(
       `**${songToBeRemoved.title}** by *${songToBeRemoved.author}* has been removed from the queue`
     );
-    // ... command logic
 };

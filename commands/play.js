@@ -12,7 +12,6 @@ module.exports.help = {
 };
 
 module.exports.run = async (client, message, args) => {
-    // ... command logic
     //serverQueue = client.queue;
     const serverQueue = client.queue.get(message.guild.id);
 
@@ -44,7 +43,6 @@ module.exports.run = async (client, message, args) => {
             } catch(err) {
                 console.log(err);
                 return message.channel.send(`Error ${err}`);
-
             }
 
         } 
@@ -80,7 +78,7 @@ module.exports.run = async (client, message, args) => {
         for (let i = 0; i < songs.items.length; i++) {
             let title = songs.items[i].title;
             let url = songs.items[i].shortUrl;
-            let duration = songs.items[i].duration;
+            let duration = songs.items[i].lengthSeconds;
             let author = songs.items[i].author.name;
            
             //let thumbnail = songInfo.thumbnail_url;
@@ -141,13 +139,14 @@ module.exports.run = async (client, message, args) => {
         }
     }
 
-    function play(message, guild, song, timestamp) {
+   async function play(message, guild, song, timestamp) {
         const serverQueue = client.queue.get(guild.id);
         if (!song) {
             serverQueue.voiceChannel.leave();
             client.queue.delete(guild.id);
-            return;
+            return message.channel.send("Playback finished");
         }
+
         const dispatcher = serverQueue.connection
             .play(ytdl(song.url),{seek:timestamp})
             .on("finish", () => {

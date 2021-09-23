@@ -37,6 +37,5 @@ module.exports.run = async (client, message, args) => {
                 }
             }
         }
-    // ... command logic
     message.channel.send("Queue has been shuffled")
 };

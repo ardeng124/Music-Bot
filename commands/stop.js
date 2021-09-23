@@ -5,7 +5,6 @@ module.exports.help = {
 };
 
 module.exports.run = async (client, message, args) => {
-    // ... command logic
     const serverQueue = client.queue.get(message.guild.id);
     if (!message.member.voice.channel) {
         return message.reply("you have to be in a vc to stop!");
@@ -13,5 +12,6 @@ module.exports.run = async (client, message, args) => {
     if (!serverQueue) {
         return message.reply("there are no songs to stop");
     }
+    serverQueue.songs = [];
     serverQueue.connection.dispatcher.end();
 };

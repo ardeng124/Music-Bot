@@ -5,7 +5,6 @@ module.exports.help = {
 };
 
 module.exports.run = async (client, message, args) => {
-    // ... command logic
     const serverQueue = client.queue.get(message.guild.id);
     if (!message.member.voice.channel) {
         return message.reply("Join a vc first!");
