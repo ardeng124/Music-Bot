@@ -13,7 +13,9 @@ const statusMessages = [
     "pain and misery",
     "dancing",
     "some music",
-    "bored"
+    "bored",
+    "feeling good",
+    "vibes"
 ]
 client.once('ready', () => {
     console.log("Ready!!")

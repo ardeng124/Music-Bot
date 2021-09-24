@@ -13,7 +13,8 @@ module.exports.run = async (client, message, args) => {
         return message.reply("No song to skip");
     }
     
-    if(serverQueue.songs.size>1) message.channel.send(`Skipped **${serverQueue.songs[0].title}**`);
+    if(serverQueue.songs.size>1) message.channel.send(`Skipped \`${serverQueue.songs[0].title}\` `);
+    serverQueue.looping = false;
     serverQueue.connection.dispatcher.end();
     //serverQueue.songs.shift();
 };

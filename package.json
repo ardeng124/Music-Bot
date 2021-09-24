@@ -6,8 +6,10 @@
         "discord.js": "^12.5.3",
         "ffmpeg": "^0.0.4",
         "fluent-ffmpeg": "^2.1.2",
+        "spdl-core": "^2.0.2",
         "youtube-search": "^1.1.6",
         "youtube-search-without-api-key": "^1.0.6",
+        "youtube-sr": "^4.1.7",
         "ytdl-core": "^4.9.1",
         "ytpl": "^2.2.3"
     }

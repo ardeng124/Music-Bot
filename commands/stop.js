@@ -12,6 +12,8 @@ module.exports.run = async (client, message, args) => {
     if (!serverQueue) {
         return message.reply("there are no songs to stop");
     }
+    message.channel.send("**Stopping queue**");
+    serverQueue.looping = false;
     serverQueue.songs = [];
     serverQueue.connection.dispatcher.end();
 };
