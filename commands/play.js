@@ -84,7 +84,7 @@ module.exports.run = async (client, message, args) => {
                 return message.reply("Could not get spotify trakc")
             }
             title = songInfo.title;
-            duration = songInfo.duration;
+            duration = songInfo.duration/1000;
             author = songInfo.artist;
             //type = 'spotify'
             try {
@@ -107,7 +107,7 @@ module.exports.run = async (client, message, args) => {
             }
             title = songInfo.title;
             url = songInfo.url;
-            duration = songInfo.duration;
+            duration = songInfo.duration/1000;
             author = songInfo.channel.name;
             //type = "youtube"
         break;
@@ -205,6 +205,4 @@ module.exports.run = async (client, message, args) => {
         serverQueue.textChannel.send(embed);
 
     }
-
-
 };

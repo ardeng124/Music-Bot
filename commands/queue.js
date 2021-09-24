@@ -24,7 +24,7 @@ module.exports.run = async (client, message, args) => {
         for (let i = 0; i < serverQueue.songs.length; i++) {
             //All this is for calculating the remaning duration of the song
             if (i == 0) {
-                timeString = getTime()
+                let timeString = getTime()
                 //time = (Math.round(time *100)/100).toFixed(2);
                 embed.addFields({
                     name: serverQueue.songs[i].title,
@@ -55,7 +55,7 @@ module.exports.run = async (client, message, args) => {
             }
             for (let j = i; j < loopGuard; j++) {
                 if (j == 0) {
-                    timeString = getTime()
+                   let timeString = getTime()
                     embed.addFields({
                         name: serverQueue.songs[j].title,
                         value: `Position ${j + 1}    *[${timeString}]*`,
@@ -71,27 +71,27 @@ module.exports.run = async (client, message, args) => {
         }
     }
     function getTime() {
-        var time
-        var duration
+        var time;
+        var duration;
         try {
-            time = serverQueue.connection.dispatcher.streamTime
-            duration = serverQueue.songs[0].length
+            time = serverQueue.connection.dispatcher.streamTime;
+            duration = serverQueue.songs[0].length;
         } catch (err) {
-            return message.reply("Give me a sec to start playing first")
+            return message.reply("Give me a sec to start playing first");
         }
-        time = time / 1000
-        time = duration - time
-        let hours = Math.floor(time / 3600)
-        time = time - hours * 3600
-        let mins = Math.floor(time / 60) //convert to mins
-        let secs = Math.floor(time - mins * 60)
-        let timeString = ""
+        time = time / 1000;
+        time = duration - time;
+        let hours = Math.floor(time / 3600);
+        time = time - hours * 3600;
+        let mins = Math.floor(time / 60); //convert to mins
+        let secs = Math.floor(time - mins * 60);
+        let timeString = "";
         timeString +=
             (hours < 10 ? `0${hours}` : `${hours}`) +
             ":" +
             (mins < 10 ? `0${mins}` : `${mins}`) +
             ":" +
-            (secs < 10 ? `0${secs}` : `${secs}`)
-        return timeString
+            (secs < 10 ? `0${secs}` : `${secs}`);
+        return timeString;
     }
 }
