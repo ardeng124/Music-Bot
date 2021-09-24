@@ -141,7 +141,11 @@ module.exports.run = async (client, message, args) => {
         }
         if (!isPlaylist){
             queueConstruct.songs.push(song);
-            message.channel.send(` \`${song.title}\` by \`${song.author}\` has been added to the queue`);
+            if(trackType == 'none') {
+                message.channel.send(` \`${song.title}\` has been added to the queue \n${song.url}`);
+            } else {
+                message.channel.send(` \`${song.title}\` has been added to the queue`);
+            }
         } 
 
         try {
@@ -164,8 +168,12 @@ module.exports.run = async (client, message, args) => {
         }
         if (!isPlaylist)  {
             serverQueue.songs.push(song);
-            return message.channel.send(` \`${song.title}\` has been added to the queue`);
-        }
+            if(trackType == 'none') {
+                return message.channel.send(` \`${song.title}\` has been added to the queue \n${song.url}`);
+            } else {
+                return message.channel.send(` \`${song.title}\` has been added to the queue`);
+            }
+        }   
     }
 
     async function playYoutube(message, guild, song, timestamp) {
