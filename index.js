@@ -17,6 +17,8 @@ const statusMessages = [
     "feeling good",
     "vibes"
 ]
+const talkedRecently = new Set();
+
 client.once('ready', () => {
     console.log("Ready!!")
   
@@ -55,6 +57,12 @@ client.on('message', async (message) => {
     if (!message.guild) return;
     if (message.author.bot) return;
     if (!message.content.startsWith(prefix)) return;
+    if (talkedRecently.has(message.author.id)) return;
+
+    talkedRecently.add(message.author.id);
+    setTimeout(() => {
+        talkedRecently.delete(message.author.id);
+    }, 1500);
 
     const args = message.content.split(" ");
     let command = args[0].substring(1);
