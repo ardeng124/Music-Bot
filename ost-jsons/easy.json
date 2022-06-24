@@ -1,0 +1,81 @@
+[
+    {
+        "name" : "Gwyn - Lord of cinder",
+        "alt-names":["Gwyn", "Gwyn lord of cinder"],
+        "link":"https://www.youtube.com/watch?v=AB6sOhQan9Y",
+        "game":"ds1"
+    },
+    {
+        "name" : "Abyss Watchers",
+        "alt-names":[],
+        "link":"https://www.youtube.com/watch?v=QV2uFgIrklk",
+        "game":"ds3"
+    },
+    {
+        "name" : "Main Menu dark souls 3",
+        "alt-names":["ds3 main menu","main menu ds3", "dark souls 3 main menu"],
+        "link":"https://www.youtube.com/watch?v=a0X0YA6ZfW4",
+        "game":"ds3"
+    },
+    {
+        "name" : "Vordt of the Boreal Valley",
+        "alt-names":["Vordt"],
+        "link":"https://www.youtube.com/watch?v=nxXcuDAv7Ss",
+        "game":"ds3"
+    },
+    {
+        "name" : "Ornstein and Smough",
+        "alt-names":[],
+        "link":"https://www.youtube.com/watch?v=Nsps0I58yUM",
+        "game":"ds1"
+    },
+    {
+        "name" : "Slave Knight Gael",
+        "alt-names":["Gael"],
+        "link":"https://www.youtube.com/watch?v=k9lr62Lth_I",
+        "game":"ds3"
+    },
+    {
+        "name" : "Main menu elden ring",
+        "alt-names":["Elden ring main menu", "main theme elden ring"],
+        "link":"https://www.youtube.com/watch?v=f0SyZnnbt-k",
+        "game":"er"
+    },
+    {
+        "name" : "Cleric beast",
+        "alt-names":["Vicar amelia"],
+        "link":"https://www.youtube.com/watch?v=cRGRSCAOqh4",
+        "game":"bb"
+    },
+    {
+        "name" : "Majula",
+        "alt-names":[],
+        "link":"https://www.youtube.com/watch?v=quj5eR1v7Ms",
+        "game":"ds2"
+    },
+    {
+        "name" : "Ludwig the Accursed",
+        "alt-names":["Ludwig","Ludwig holy blade"],
+        "link":"https://www.youtube.com/watch?v=ALbVEmzY5S4",
+        "game":"bb"
+    },
+    {
+        "name" : "Malenia, Blade of Miquella",
+        "alt-names":["Malenia"],
+        "link":"https://www.youtube.com/watch?v=ylSGC-XuNPQ",
+        "game":"er"
+    },
+    {
+        "name" : "Mohg, Lord of Blood",
+        "alt-names":["Mohg"],
+        "link":"https://www.youtube.com/watch?v=gTN2LZVJ_-Q",
+        "game":"er"
+    },
+    {
+        "name" : "Radagon of the Golden Order",
+        "alt-names":["Radagon"],
+        "link":"https://www.youtube.com/watch?v=RbOUwFx61Uw",
+        "game":"er"
+    }
+
+]

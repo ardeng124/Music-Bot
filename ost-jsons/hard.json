@@ -1,0 +1,194 @@
+[
+    {
+        "name" : "Last Giant",
+        "alt-names":["The last giant"],
+        "link":"https://www.youtube.com/watch?v=P0SNu7vO1BA&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=5",
+        "game":"ds2"
+    },
+    {
+        "name" : "The Pursuer",
+        "alt-names":[],
+        "link":"https://www.youtube.com/watch?v=t4V8Qn-hHF8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=6",
+        "game":"ds2"
+    },
+    {
+        "name" : "Old Dragonslayer",
+        "alt-names":[],
+        "link":"https://www.youtube.com/watch?v=t4V8Qn-hHF8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=7",
+        "game":"ds2"
+    },
+    {
+        "name" : "Dragonrider",
+        "alt-names":["dragonriders"],
+        "link":"https://www.youtube.com/watch?v=t4V8Qn-hHF8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=8",
+        "game":"ds2"
+    },
+    {
+        "name" : "Flexile Sentry",
+        "alt-names":[],
+        "link":"https://www.youtube.com/watch?v=bswWXpB5mDM&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=10",
+        "game":"ds2"
+    },
+    {
+        "name" : "Ruin Sentinels",
+        "alt-names":[],
+        "link":"https://www.youtube.com/watch?v=rmpqBuwdiXc&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=11",
+        "game":"ds2"
+    },
+    {
+        "name" : "Belfry Gargoyles",
+        "alt-names":[],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=12",
+        "game":"ds2"
+    },
+    {
+        "name" : "Lost Sinner",
+        "alt-names":["The lost sinner"],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=13",
+        "game":"ds2"
+    },
+    {
+        "name" : "Executioners Chariot",
+        "alt-names":[],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=14",
+        "game":"ds2"
+    },
+    {
+        "name" : "Skeleton Lords",
+        "alt-names":["Skeleton lord"],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=16",
+        "game":"ds2"
+    },
+    {
+        "name" : "Covetous Demon",
+        "alt-names":[],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=17",
+        "game":"ds2"
+    },
+    {
+        "name" : "Mytha Baneful queen",
+        "alt-names":["Mytha", "Mytha the baneful queen"],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=18",
+        "game":"ds2"
+    },
+    {
+        "name" : "Old Iron King",
+        "alt-names":[],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=19",
+        "game":"ds2"
+    },
+    {
+        "name" : "Scorpioness Najka",
+        "alt-names":[],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=20",
+        "game":"ds2"
+    },
+    {
+        "name" : "Royal Rat Authority",
+        "alt-names":[],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=21",
+        "game":"ds2"
+    },
+    {
+        "name" : "Dukes Dear Freya",
+        "alt-names":["The Dukes Dear Freya"],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=22",
+        "game":"ds2"
+    },
+    {
+        "name" : "Royal Rat Vanguard",
+        "alt-names":[],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=23",
+        "game":"ds2"
+    },
+    {
+        "name" : "The Rotten",
+        "alt-names":[],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=24",
+        "game":"ds2"
+    },
+    {
+        "name" : "Looking Glass Knight",
+        "alt-names":[],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=26",
+        "game":"ds2"
+    },
+    {
+        "name" : "Darklurker",
+        "alt-names":[],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=28",
+        "game":"ds2"
+    },
+    {
+        "name" : "Demon of Song",
+        "alt-names":[],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=30",
+        "game":"ds2"
+    },
+    {
+        "name" : "Velstadt, The Royal Aegis",
+        "alt-names":["Velstadt"],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=31",
+        "game":"ds2"
+    },
+    {
+        "name" : "King Vendrick",
+        "alt-names":["Vendrick"],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=32",
+        "game":"ds2"
+    },
+    {
+        "name" : "Throne Watcher, Throne Defender",
+        "alt-names":["Throne Watcher", "Throne defender"],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=33",
+        "game":"ds2"
+    },
+    {
+        "name" : "Guardian Dragon",
+        "alt-names":[],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=34",
+        "game":"ds2"
+    },
+    {
+        "name" : "Ancient Dragon",
+        "alt-names":[],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=35",
+        "game":"ds2"
+    },
+    {
+        "name" : "Nashandra",
+        "alt-names":[],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=37",
+        "game":"ds2"
+    },
+    {
+        "name" : "Elana, Squalid Queen",
+        "alt-names":["Elana"],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=40",
+        "game":"ds2"
+    },
+    {
+        "name" : "Sinh, Slumbering dragon",
+        "alt-names":["Sinh"],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=41",
+        "game":"ds2"
+    },
+    {
+        "name" : "Fume Knight",
+        "alt-names":[],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=43",
+        "game":"ds2"
+    },
+    {
+        "name" : "Aava, the Kings Pet",
+        "alt-names":["Aava"],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=45",
+        "game":"ds2"
+    },
+    {
+        "name" : "Lud and Zallen",
+        "alt-names":["Ivory King"],
+        "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=47",
+        "game":"ds2"
+    }
+]

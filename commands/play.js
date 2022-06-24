@@ -1,7 +1,7 @@
 const ytdl = require("ytdl-core");
 const ytpl = require("ytpl");
 //const YouTube = require("discord-youtube-api");
-//const config = require('../config.json');
+//const config =  require('../config.json');
 //const youtube = new YouTube(config.youtubeKey);
 const Discord = require("discord.js");
 const spdl = require("spdl-core").default;

@@ -62,7 +62,7 @@ client.on('message', async (message) => {
     talkedRecently.add(message.author.id);
     setTimeout(() => {
         talkedRecently.delete(message.author.id);
-    }, 1500);
+    }, 1000);
 
     const args = message.content.split(" ");
     let command = args[0].substring(1);
