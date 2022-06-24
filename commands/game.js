@@ -73,15 +73,8 @@ module.exports.run = async (client, message, args) => {
           queueConstruct.connection = connection;
           playYoutube(msg, msg.guild, queueConstruct.songs[0],0).then(message => {
             msg.channel.awaitMessages(filter, {
-              time:30000,
+              time:500000,
               errors:['time']
-            }).then( message =>  {
-              answer = message.content.toLowerCase();
-              if(answer == serverQueue.songs[0].name || serverQueue.songs[0].alt-names.includes(answer)){
-                message.reply("Bingo")
-                serverQueue.connection.dispatcher.end();
-
-              }
             })
 
           })
@@ -91,7 +84,12 @@ module.exports.run = async (client, message, args) => {
             client.queue.delete(message.guild.id);
             return message.channel.send("I/you/we fucked up " + err);
         }
+        answer = message.content.toLowerCase();
+        if(answer == serverQueue.songs[0].name || serverQueue.songs[0].alt-names.includes(answer)){
+          message.reply("Bingo")
+          serverQueue.connection.dispatcher.end();
 
+        }
       })
 
   })
@@ -125,14 +123,14 @@ module.exports.run = async (client, message, args) => {
         // return message.channel.send("Playback finished");
     }
     //dispatcher for playing song in vc
-    let songInfo = await ytdl.getInfo(song.url);
+    let songInfo = await ytdl.getInfo(song.link);
     let duration = songInfo.videoDetails.lengthSeconds;
     let pointDecreaseInterval = duration/5;
 
 
     const dispatcher = serverQueue.connection
         
-        .play(ytdl(song.url),{seek:timestamp})
+        .play(ytdl(song.link),{seek:timestamp})
         .on("finish", () => {
             return([dispatcher.timestamp, duration]);
         })
