@@ -81,7 +81,8 @@ module.exports.run = async (client, message, args) => {
             try {
                 songInfo = await spdl.getInfo(songUrl)
             } catch (err) {
-                return message.reply("Could not get spotify trakc")
+                console.log(err)
+                return message.reply("Could not get spotify track")
             }
             title = songInfo.title;
             duration = songInfo.duration/1000;
@@ -90,6 +91,7 @@ module.exports.run = async (client, message, args) => {
             try {
                 videoSearch = await YouTubeSR.searchOne(`${title} ${author}`)
             } catch (err) {
+                console.log(err)
                 return message.reply("Could not get track");
             }
             
@@ -151,6 +153,7 @@ module.exports.run = async (client, message, args) => {
         try {
             var connection = await vc.join();
             queueConstruct.connection = connection;
+            // console.log(queueConstruct.songs[0])
             playYoutube(message, message.guild, queueConstruct.songs[0],0);
         } catch (err) {
             console.log("Error in try/catch when setting queue")
@@ -178,32 +181,71 @@ module.exports.run = async (client, message, args) => {
 
     async function playYoutube(message, guild, song, timestamp) {
         const serverQueue = client.queue.get(guild.id);
+        console.log(serverQueue.songs[0])
         if (!song) {
             serverQueue.voiceChannel.leave();
             client.queue.delete(guild.id);
             return message.channel.send("Playback finished");
         }
         //dispatcher for playing song in vc
+
+
+        //this fix was found
+        let stream = ytdl(song.url, {
+            filter: "audioonly",
+            // opusEncoded: false,
+            fmt: "mp3",
+            highWaterMark: 1 << 62,
+            liveBuffer: 1 << 62,
+            dlChunkSize: 0, //disabling chunking is recommended in discord bot
+            bitrate: 128,
+            encoderArgs: ["-af", "bass=g=10,dynaudnorm=f=200"],
+        })
+
         const dispatcher = serverQueue.connection
-            .play(ytdl(song.url),{seek:timestamp})
+            .play(stream, { type: "unknown" })
             .on("finish", () => {
-                if(!serverQueue.looping) { 
-                    serverQueue.songs.shift();
-                }
-                serverQueue.currentSong = serverQueue.songs[0];
-                playYoutube(message, guild, serverQueue.songs[0],0);
+                if (!serverQueue.looping) {
+                     serverQueue.songs.shift()
+                 }
+                 serverQueue.currentSong = serverQueue.songs[0]
+                 playYoutube(message, guild, serverQueue.songs[0], 0)
             })
             .on("error", (error) => {
-                var time = dispatcher.timestamp;
-                
-                console.log("error playing");
-                console.log(error);
+                console.log(dispatcher.timestamp)
+                 var time = dispatcher.timestamp
 
-                message.channel.send(
-                    `There was a problem playing the track \`${serverQueue.songs[0].title}\` `
-                );
-                playYoutube(message, guild, serverQueue.songs[0],time);
-            });
+                 console.log("error playing")
+                 console.log(error)
+
+                 message.channel.send(
+                     `There was a problem playing the track \`${serverQueue.songs[0].title}\` `
+                 )
+                 playYoutube(message, guild, serverQueue.songs[0], time)
+             })
+        //  const dispatcher = serverQueue.connection
+        //      .play(ytdl(song.url), {
+        //          seek: timestamp
+        //      })
+        //      .on("finish", () => {
+        //          if (!serverQueue.looping) {
+        //              serverQueue.songs.shift()
+        //          }
+        //          serverQueue.currentSong = serverQueue.songs[0]
+        //          playYoutube(message, guild, serverQueue.songs[0], 0)
+        //      })
+           
+        //      .on("error", (error) => {
+        //          var time = dispatcher.timestamp
+
+        //          console.log("error playing")
+        //          console.log(error)
+
+        //          message.channel.send(
+        //              `There was a problem playing the track \`${serverQueue.songs[0].title}\` `
+        //          )
+        //          playYoutube(message, guild, serverQueue.songs[0], time)
+        //      })
 
         dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
         const embed = new Discord.MessageEmbed()
