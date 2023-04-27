@@ -1,8 +1,9 @@
 const { promisify, isArray } = require('util');
 const readdir = promisify(require('fs').readdir);
-const Discord = require('discord.js');
+const { Client, IntentsBitField} = require('discord.js');
 const config = require("./config.json");
-const client = new Discord.Client();
+const intentsNew = 640
+const client = new Client({ intents: intentsNew });
 const prefix = config.prefix;
 client.login(config.token);
 client.commands = new Map();
@@ -18,7 +19,6 @@ const statusMessages = [
     "vibes"
 ]
 const talkedRecently = new Set();
-
 client.once('ready', () => {
     console.log("Ready!!")
   
@@ -53,7 +53,7 @@ client.on('ready', async () => {
     })
 })
 
-client.on('message', async (message) => {
+client.on('messageCreate', async (message) => {
     if (!message.guild) return;
     if (message.author.bot) return;
     if (!message.content.startsWith(prefix)) return;

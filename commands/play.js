@@ -159,6 +159,7 @@ module.exports.run = async (client, message, args) => {
             console.log("Error in try/catch when setting queue")
             console.log(err);
             client.queue.delete(message.guild.id);
+	    vc.leave();
             return message.channel.send("I/you/we fucked up " + err);
         }
     } else {
