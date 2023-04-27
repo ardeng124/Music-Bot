@@ -1,14 +1,21 @@
 const { promisify, isArray } = require('util');
 const readdir = promisify(require('fs').readdir);
-const { Client, IntentsBitField} = require('discord.js');
+const { Client, IntentsBitField, ActivityType } = require("discord.js")
 const config = require("./config.json");
-const intentsNew = 640
-const client = new Client({ intents: intentsNew });
+const Discord = require("discord.js")
+
+const client = new Discord.Client({
+    intents: [
+        "Guilds",
+        "GuildMessages",
+        "MessageContent",
+        "GuildVoiceStates",],
+    partials: ["MESSAGE", "CHANNEL", "REACTION"],
+})
 const prefix = config.prefix;
 client.login(config.token);
 client.commands = new Map();
 client.queue = new Map();
-//const queue = new Map();
 const statusMessages = [  
     "suffering",
     "pain and misery",
@@ -16,7 +23,8 @@ const statusMessages = [
     "some music",
     "bored",
     "feeling good",
-    "vibes"
+    "vibes",
+    "eeeeeeeee"
 ]
 const talkedRecently = new Set();
 client.once('ready', () => {
@@ -24,6 +32,16 @@ client.once('ready', () => {
   
     let index = Math.floor(Math.random() * (statusMessages.length - 1 + 1));
     client.user.setActivity(statusMessages[index], { type: "STREAMING", url: "https://www.twitch.tv/something" })
+    client.user.setPresence({
+        activities: [
+            {
+                name: `${statusMessages[index]}`,
+                type: ActivityType.Streaming,
+                url: "https://www.twitch.tv/something",
+            },
+        ],
+        status: "online",
+    })
 });
 client.once("reconnecting", () => {
     console.log("reconnecting");
