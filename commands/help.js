@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+
 const fs = require("fs");
 module.exports.help = {
     name: "help",
@@ -7,15 +8,21 @@ module.exports.help = {
 };
 
 module.exports.run = async (client, message, args) => {
-    const embed = new Discord.MessageEmbed()
-        .setTitle("Help")
-        .setColor(0x78b0f0)
-        .setDescription("prefix: \`-\`");
-    let commands = fs.readdirSync("./commands").filter((file) => file.endsWith(".js"));
+    let commands = fs
+        .readdirSync("./commands")
+        .filter((file) => file.endsWith(".js"))
+    const embed = {
+        title: "Help",
+        color: 0x78b0f0,
+        description: "prefix: `-`",
+        fields: [],
+    }
     commands.forEach((element) => {
-        const command = require(`./${element}`);
-        embed.addFields({name: command.help.name, value: `**desc:** ${command.help.description} \n **usage:** \`${command.help.usage}\` `})
-    });
-
-    message.channel.send(embed);
+        const command = require(`./${element}`)
+        embed.fields.push({
+            name: `${command.help.name}`,
+            value: `**desc:** ${command.help.description} \n **usage:** \`${command.help.usage}\` `,
+        })
+    })
+    message.channel.send({ embeds: [embed] })
 };

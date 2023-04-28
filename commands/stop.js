@@ -15,5 +15,7 @@ module.exports.run = async (client, message, args) => {
     message.channel.send("**Stopping queue**");
     serverQueue.looping = false;
     serverQueue.songs = [];
-    serverQueue.connection.dispatcher.end();
+    
+    serverQueue.connection.destroy()
+    client.queue.delete(message.guild.id)
 };

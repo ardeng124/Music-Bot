@@ -12,9 +12,16 @@ module.exports.run = async (client, message, args) => {
     if (!serverQueue) {
         return message.reply("No song to skip");
     }
-    
-    if(serverQueue.songs.size>1) message.channel.send(`Skipped \`${serverQueue.songs[0].title}\` `);
+    if (serverQueue.songs.size >= 1)
+        message.channel.send(`Skipped \`${serverQueue.songs[0].title}\` `)
+
     serverQueue.looping = false;
-    serverQueue.connection.dispatcher.end();
-    //serverQueue.songs.shift();
+    try {
+        serverQueue.player.stop();
+        // return message.reply("Skipped")
+    } catch (e) {
+        console.log(e)
+    }
+    // serverQueue.connection.dispatcher.end();
+    // serverQueue.songs.shift();
 };

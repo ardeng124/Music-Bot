@@ -1,10 +1,12 @@
-// const ytdl = require("ytdl-core");
-const ytdl = require("ytdl-core-discord")
+
+const ytdl = require("ytdl-core");
+// const ytdl = require("ytdl-core-discord")
 const ytpl = require("ytpl");
 //const YouTube = require("discord-youtube-api");
 //const config =  require('../config.json');
 //const youtube = new YouTube(config.youtubeKey);
 const Discord = require("discord.js");
+const { EmbedBuilder } = require("discord.js")
 const spdl = require("spdl-core").default;
 const YouTubeSR = require("youtube-sr").default;
 const {
@@ -12,6 +14,7 @@ const {
     createAudioResource,
     AudioPlayerStatus,
     createAudioPlayer,
+    getVoiceConnection,
 } = require("@discordjs/voice")
 
 module.exports.help = {
@@ -139,8 +142,11 @@ module.exports.run = async (client, message, args) => {
             volume: 5,
             playing: true,
             currentSong: null,
-            looping: false
-        };
+            looping: false,
+            player: new createAudioPlayer(),
+            audioResource: null,
+            timestamp:0
+        }
         client.queue.set(message.guild.id, queueConstruct);
         if (isPlaylist) {
             formattedSongList.forEach((element) => {
@@ -159,7 +165,7 @@ module.exports.run = async (client, message, args) => {
 
         try {
             // var connection = await vc.join();
-            const connection = await joinVoiceChannel({
+            const connection =  joinVoiceChannel({
                 channelId: vc.id,
                 guildId: vc.guild.id,
                 adapterCreator: vc.guild.voiceAdapterCreator,
@@ -194,6 +200,7 @@ module.exports.run = async (client, message, args) => {
 
     async function playYoutube(message, guild, song, timestamp) {
         const serverQueue = client.queue.get(guild.id)
+        const player = serverQueue.player
         console.log(serverQueue.songs[0])
         if (!song) {
             // serverQueue.voiceChannel.leave();
@@ -201,21 +208,9 @@ module.exports.run = async (client, message, args) => {
             client.queue.delete(guild.id)
             return message.channel.send("Playback finished")
         }
-        //dispatcher for playing song in vc
-
-        //https://www.npmjs.com/package/ytdl-core-discord
-        /*
-*/
         try {
-            const connection = joinVoiceChannel({
-                channelId: serverQueue.voiceChannel.id,
-                guildId: serverQueue.voiceChannel.guild.id,
-                adapterCreator:
-                    serverQueue.voiceChannel.guild.voiceAdapterCreator,
-            })
-      
-            let stream = ytdl(song.url, {
-                filter: "audioonly",
+                let stream = ytdl(song.url, {
+                    filter: "audioonly",
                 // opusEncoded: false,
                 fmt: "mp3",
                 // quality: "highestaudio",
@@ -225,14 +220,16 @@ module.exports.run = async (client, message, args) => {
                 // bitrate: 128,
                 // encoderArgs: ["-af", "bass=g=10,dynaudnorm=f=200"],
             })
-            const resource = createAudioResource(stream)
-            const player = createAudioPlayer()
+            // const player = createAudioPlayer()
+            serverQueue.audioResource = createAudioResource(stream)
 
+            const resource = serverQueue.audioResource
+            
+            let startTime
+            serverQueue.timestamp = Date.now()
             player.play(resource)
-            connection.subscribe(player)
-            // console.log(serverQueue)
-            // console.log("\n \n \n \n \n ")
-            // console.log(stream)
+            serverQueue.connection.subscribe(player)
+            
             player.on(AudioPlayerStatus.Idle, () => {
                 if (!serverQueue.looping) {
                     serverQueue.songs.shift()
@@ -240,6 +237,8 @@ module.exports.run = async (client, message, args) => {
                 serverQueue.currentSong = serverQueue.songs[0]
                 if (serverQueue.songs.length <= 0) {
                     serverQueue.connection.destroy()
+                    client.queue.delete(guild.id)
+                    return message.channel.send("Playback finished")
                 } else {
                     playYoutube(message, guild, serverQueue.songs[0], 0)
                 }
@@ -253,10 +252,11 @@ module.exports.run = async (client, message, args) => {
             message.reply("Failed to play the live stream.")
         }
 
-        // const embed = new Discord.MessageEmbed()
-        //     .setTitle("Now Playing 🎶")
-        //     .setColor(0x78b0f0)
-        //     .setDescription(`**${song.title}** \n by ${song.author}`);
-        // serverQueue.textChannel.send(embed);
+        const embed = new EmbedBuilder()
+            .setTitle("Now Playing 🎶")
+            .setColor(0x78b0f0)
+            .setDescription(`**${song.title}** \n by ${song.author}`)
+        serverQueue.textChannel.send({ embeds: [embed] })
+        
     }
 };
