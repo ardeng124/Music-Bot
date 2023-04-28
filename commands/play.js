@@ -1,4 +1,5 @@
-const ytdl = require("ytdl-core");
+// const ytdl = require("ytdl-core");
+const ytdl = require("ytdl-core-discord")
 const ytpl = require("ytpl");
 //const YouTube = require("discord-youtube-api");
 //const config =  require('../config.json');
@@ -6,6 +7,12 @@ const ytpl = require("ytpl");
 const Discord = require("discord.js");
 const spdl = require("spdl-core").default;
 const YouTubeSR = require("youtube-sr").default;
+const {
+    joinVoiceChannel,
+    createAudioResource,
+    AudioPlayerStatus,
+    createAudioPlayer,
+} = require("@discordjs/voice")
 
 module.exports.help = {
   name: ["play"],
@@ -20,14 +27,14 @@ module.exports.run = async (client, message, args) => {
         return message.reply("Play what?");
     }
     var songUrl = args[1];
-    const vc = message.member.voice.channel;
+    const vc = message.member?.voice.channel
     if (!vc) {
         return message.reply("You need to get into a voice channel first!");
     }
-    const permissions = vc.permissionsFor(message.client.user);
-    if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
-        return message.reply("I don't have permission to join!");
-    }
+    // const permissions = vc.permissionsFor(message.client.user);
+    // if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
+    //     return message.reply("I don't have permission to join!");
+    // }
     //load details of the video
  
     var title,url,duration,author,songInfo,type,song;
@@ -151,7 +158,12 @@ module.exports.run = async (client, message, args) => {
         } 
 
         try {
-            var connection = await vc.join();
+            // var connection = await vc.join();
+            const connection = await joinVoiceChannel({
+                channelId: vc.id,
+                guildId: vc.guild.id,
+                adapterCreator: vc.guild.voiceAdapterCreator,
+            })
             queueConstruct.connection = connection;
             // console.log(queueConstruct.songs[0])
             playYoutube(message, message.guild, queueConstruct.songs[0],0);
@@ -181,79 +193,70 @@ module.exports.run = async (client, message, args) => {
     }
 
     async function playYoutube(message, guild, song, timestamp) {
-        const serverQueue = client.queue.get(guild.id);
+        const serverQueue = client.queue.get(guild.id)
         console.log(serverQueue.songs[0])
         if (!song) {
-            serverQueue.voiceChannel.leave();
-            client.queue.delete(guild.id);
-            return message.channel.send("Playback finished");
+            // serverQueue.voiceChannel.leave();
+            serverQueue.connection.destroy()
+            client.queue.delete(guild.id)
+            return message.channel.send("Playback finished")
         }
         //dispatcher for playing song in vc
 
-
-        //this fix was found
-        let stream = ytdl(song.url, {
-            filter: "audioonly",
-            // opusEncoded: false,
-            fmt: "mp3",
-            highWaterMark: 1 << 62,
-            liveBuffer: 1 << 62,
-            dlChunkSize: 0, //disabling chunking is recommended in discord bot
-            bitrate: 128,
-            encoderArgs: ["-af", "bass=g=10,dynaudnorm=f=200"],
-        })
-
-        const dispatcher = serverQueue.connection
-            .play(stream, { type: "unknown" })
-            .on("finish", () => {
-                if (!serverQueue.looping) {
-                     serverQueue.songs.shift()
-                 }
-                 serverQueue.currentSong = serverQueue.songs[0]
-                 playYoutube(message, guild, serverQueue.songs[0], 0)
+        //https://www.npmjs.com/package/ytdl-core-discord
+        /*
+*/
+        try {
+            const connection = joinVoiceChannel({
+                channelId: serverQueue.voiceChannel.id,
+                guildId: serverQueue.voiceChannel.guild.id,
+                adapterCreator:
+                    serverQueue.voiceChannel.guild.voiceAdapterCreator,
             })
-            .on("error", (error) => {
-                console.log(dispatcher.timestamp)
-                 var time = dispatcher.timestamp
+      
+            let stream = ytdl(song.url, {
+                filter: "audioonly",
+                // opusEncoded: false,
+                fmt: "mp3",
+                // quality: "highestaudio",
+                // highWaterMark: 1 << 25,
+                // liveBuffer: 1 << 62,
+                // dlChunkSize: 0, //disabling chunking is recommended in discord bot
+                // bitrate: 128,
+                // encoderArgs: ["-af", "bass=g=10,dynaudnorm=f=200"],
+            })
+            const resource = createAudioResource(stream)
+            const player = createAudioPlayer()
 
-                 console.log("error playing")
-                 console.log(error)
+            player.play(resource)
+            connection.subscribe(player)
+            // console.log(serverQueue)
+            // console.log("\n \n \n \n \n ")
+            // console.log(stream)
+            player.on(AudioPlayerStatus.Idle, () => {
+                if (!serverQueue.looping) {
+                    serverQueue.songs.shift()
+                }
+                serverQueue.currentSong = serverQueue.songs[0]
+                if (serverQueue.songs.length <= 0) {
+                    serverQueue.connection.destroy()
+                } else {
+                    playYoutube(message, guild, serverQueue.songs[0], 0)
+                }
+            })
+            
+            player.on("error", (err) => {
+                console.error(err)
+            })
+        } catch (error) {
+            console.error(error)
+            message.reply("Failed to play the live stream.")
+        }
 
-                 message.channel.send(
-                     `There was a problem playing the track \`${serverQueue.songs[0].title}\` `
-                 )
-                 playYoutube(message, guild, serverQueue.songs[0], time)
-             })
-        //  const dispatcher = serverQueue.connection
-        //      .play(ytdl(song.url), {
-        //          seek: timestamp
-        //      })
-        //      .on("finish", () => {
-        //          if (!serverQueue.looping) {
-        //              serverQueue.songs.shift()
-        //          }
-        //          serverQueue.currentSong = serverQueue.songs[0]
-        //          playYoutube(message, guild, serverQueue.songs[0], 0)
-        //      })
-           
-        //      .on("error", (error) => {
-        //          var time = dispatcher.timestamp
-
-        //          console.log("error playing")
-        //          console.log(error)
-
-        //          message.channel.send(
-        //              `There was a problem playing the track \`${serverQueue.songs[0].title}\` `
-        //          )
-        //          playYoutube(message, guild, serverQueue.songs[0], time)
-        //      })
-
-        dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-        const embed = new Discord.MessageEmbed()
-            .setTitle("Now Playing 🎶")
-            .setColor(0x78b0f0)
-            .setDescription(`**${song.title}** \n by ${song.author}`);
-        serverQueue.textChannel.send(embed);
-
+        // const embed = new Discord.MessageEmbed()
+        //     .setTitle("Now Playing 🎶")
+        //     .setColor(0x78b0f0)
+        //     .setDescription(`**${song.title}** \n by ${song.author}`);
+        // serverQueue.textChannel.send(embed);
     }
 };
