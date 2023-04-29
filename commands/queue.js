@@ -23,8 +23,10 @@ module.exports.run = async (client, message, args) => {
             timestamp: new Date().toISOString(),
             fields: [],
         }
+
         if (serverQueue.looping) {
-            embed.setDescription("Looping first track 🔃")
+                embed.description = "Looping first track 🔃"
+
         }
         for (let i = 0; i < serverQueue.songs.length; i++) {
             //All this is for calculating the remaning duration of the song
