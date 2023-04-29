@@ -236,8 +236,13 @@ module.exports.run = async (client, message, args) => {
                 }
                 serverQueue.currentSong = serverQueue.songs[0]
                 if (serverQueue.songs.length <= 0) {
-                    serverQueue.connection.destroy()
-                    client.queue.delete(guild.id)
+                    try {
+                        serverQueue.connection.destroy()
+                        client.queue.delete(guild.id)
+
+                    } catch (e) {
+                        console.log(e)
+                    }
                     return message.channel.send("Playback finished")
                 } else {
                     playYoutube(message, guild, serverQueue.songs[0], 0)
