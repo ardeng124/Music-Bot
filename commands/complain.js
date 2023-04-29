@@ -8,4 +8,5 @@ module.exports.run = async (client, message, args) => {
     //let complaint = args.toString();
     let complaint = args.join(" ")
     complaint = complaint.substring(10);
+    console.log(`LOG: ${complaint} \nfrom: ${message.author.username}`)
 };

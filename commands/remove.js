@@ -27,7 +27,8 @@ module.exports.run = async (client, message, args) => {
         let songToBeRemoved = serverQueue.songs[index];
         if(index == 0) {
             serverQueue.looping = false;
-            serverQueue.connection.dispatcher.end()
+            serverQueue.connection.destroy()
+            client.queue.delete(message.guild.id)
         } else {
         serverQueue.songs.splice(index, 1);
         }

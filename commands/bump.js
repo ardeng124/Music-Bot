@@ -34,12 +34,14 @@ module.exports.run = async (client, message, args) => {
         //     serverQueue.songs[i+1] = serverQueue.songs[i];
         //     i--;
         // }
-    let currentSong = serverQueue.songs[0];
+ 
+    console.log(serverQueue.songs)
     serverQueue.songs.unshift(songToBump)
     serverQueue.songs.splice(index + 1, 1)
     serverQueue.songs.splice(1,0,songToBump);
     serverQueue.looping = false;
-    serverQueue.connection.dispatcher.end()
+    serverQueue.player.stop()
+
     message.channel.send(
         ` \`${songToBump.title}\` has been moved to the front of the queue`
     )
