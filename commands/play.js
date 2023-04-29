@@ -178,7 +178,7 @@ module.exports.run = async (client, message, args) => {
             console.log(err);
             client.queue.delete(message.guild.id);
 	    vc.leave();
-            return message.channel.send("I/you/we fucked up " + err);
+            return message.channel.send("Error playing track " + err);
         }
     } else {
         //if its a playlist add each to the queue
@@ -201,7 +201,7 @@ module.exports.run = async (client, message, args) => {
     async function playYoutube(message, guild, song, timestamp) {
         const serverQueue = client.queue.get(guild.id)
         const player = serverQueue.player
-        console.log(serverQueue.songs[0])
+        // console.log(serverQueue.songs[0])
         if (!song) {
             // serverQueue.voiceChannel.leave();
             serverQueue.connection.destroy()
@@ -224,14 +224,12 @@ module.exports.run = async (client, message, args) => {
             serverQueue.audioResource = createAudioResource(stream)
 
             const resource = serverQueue.audioResource
-            
-            let startTime
             serverQueue.timestamp = Date.now()
             player.play(resource)
             serverQueue.connection.subscribe(player)
-            
             player.on(AudioPlayerStatus.Idle, () => {
                 if (!serverQueue.looping) {
+                    console.log(serverQueue.songs)
                     serverQueue.songs.shift()
                 }
                 serverQueue.currentSong = serverQueue.songs[0]

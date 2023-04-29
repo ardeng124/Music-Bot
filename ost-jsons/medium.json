@@ -1,20 +1,26 @@
 [
     {
     "name" : "Sir Alonne",
-    "alt-names":["alonne"],
-    "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=44",
+    "alt":["alonne"],
+    "link":"https://www.youtube.com/watch?v=P-R1FmPjClA&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=44",
     "game":"ds2"
 },
 {
     "name" : "Burnt Ivory King",
-    "alt-names":["Ivory King"],
-    "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=46",
+    "alt":["Ivory King"],
+    "link":"https://www.youtube.com/watch?v=oj-FC4OPhkU&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=46",
     "game":"ds2"
 },
 {
     "name" : "Aldia, Scholar of the first sin",
-    "alt-names":["Aldia"],
-    "link":"https://www.youtube.com/watch?v=_3ynHLs6pM8&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=48",
+    "alt":["Aldia"],
+    "link":"https://www.youtube.com/watch?v=jLZ18bLK0EA&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=48",
+    "game":"ds2"
+},
+{
+    "name" : "Nashandra",
+    "alt":[],
+    "link":"https://www.youtube.com/watch?v=xjjhR0wWtt0&list=PLpxrJrWZu7vTbnTM4DtF0hl99gAY6Bf-T&index=37",
     "game":"ds2"
 }
 ]
